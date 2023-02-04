@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include partials/head %>
+    <script src="javascripts/inputValidator.js"></script>
+</head>
+<body>
+<br><br>
+<div class="container" id="reg-container">
+    <div class="alert alert-secondary" role="alert">
+        <form action="/register/verify-registration" method="post">
+            <h1>Sign Up</h1>
+            <p>Please fill in this form to create an account.</p>
+            <p id="errorMessages"></p>
+            <% if (showError===true) { %>
+                <div class='alert alert-danger' >
+                    <p><%= errorMsg %></p>
+                </div>
+            <% } %>
+            <hr>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control mb-3" id="First-name" name="First_name" placeholder="First name"
+                           aria-label="First name">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control mb-3" id="Last-name" name="Last_name" placeholder="Last name"
+                           aria-label="Last-name">
+                </div>
+            </div>
+            <div>
+                <input type="text" class="form-control mb-3" id="Email-address" name="Email_address" placeholder="Enter email"
+                       aria-label="Email-address">
+            </div>
+            <a class = "mb-3" href ='/'>have an email?</a><br><br>
+
+            <div class="buttons">
+                <button type="submit" id="submit-button" class="btn btn-primary mb-3">Sign Up</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script>
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // initiating the validator
+        validator.init(32);
+        validator.setDelimiters(" ,.;:!?-");
+
+        /** performs the validation of the form
+         * @param name an object containing the values of the form fields
+         * @returns {boolean} true if the form is valid, false otherwise
+         */
+        const validateName = (name) => {
+            validator.setMaxLength(32);
+            validator.setMinLength(3);
+            let c = validator.validateMultiple(name,
+                validator.isNotEmptyString,
+                validator.checkOneWord,
+                validator.lettersOnly,
+                validator.checkMinLength,
+                validator.checkMaxLength)
+            return c;
+        }
+
+        const validateEmail = (email) => {
+            let c = validator.validateMultiple(email,
+                validator.isNotEmptyString,
+                validator.validateEmail)
+            return c;
+        }
+
+        document.getElementById('submit-button').addEventListener('click', (event) => {
+            validator.emptyErrorMessages()
+            document.getElementById("errorMessages").innerHTML=''
+
+            const x1 = validateName(document.getElementById('First-name').value);
+            const x2 = validateName(document.getElementById('Last-name').value);
+            const x3 = validateEmail(document.getElementById('Email-address').value);
+
+            if(!(x1 && x2 && x3))
+            {
+                event.preventDefault();
+                document.getElementById("errorMessages").innerHTML = validator.convertErrorsToHtml();
+            }
+
+        });
+    });
+</script>
+</body>
+<% include partials/script %>
+</html>

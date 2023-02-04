@@ -1,0 +1,83 @@
+.body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.a {
+  color: #00B7FF;
+}
+
+.link-grey { color: #aaa; }  .link-grey:hover { color: #00913b; }
+
+.gradient-custom { /* fallback for old browsers */ background: #4facfe; /* Chrome 10-25,
+Safari 5.1-6 */ background: -webkit-linear-gradient(to bottom right, rgba(79, 172, 254,
+1), rgba(0, 242, 254, 1)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+,
+Safari 7+ */ background: linear-gradient(to bottom right, rgba(79, 172, 254, 1), rgba(0,
+242, 254, 1)) }
+
+
+div.scroll {
+  height: 250px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Style buttons */
+.btn {
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 12px 16px; /* Some padding */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+
+#card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.card-actions {
+  margin: 8px;
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#loader {
+  display: flex;
+}
+.skeleton-card {
+  height: 55vh;
+  width: calc((100% / 3) - 16px);
+  margin: 8px;
+  border-radius: 3px;
+  transition: all 200ms ease-in-out;
+  position: relative;
+  background-color: #eaeaea;
+}
+.skeleton-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0));
+  animation: load 1s infinite;
+}
+@keyframes load {
+  100% {
+    transform: translateX(100%);
+  }
+}
